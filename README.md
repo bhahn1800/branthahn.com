@@ -1,6 +1,6 @@
 # branthahn.com
 
-A small, static personal homepage for Brant Hahn. Biographical content is based on the [LinkedIn profile](https://www.linkedin.com/in/brant-hahn-58b7847a/). Project descriptions link to the public [GitHub repositories](https://github.com/bhahn1800), and the page links to the [Hugging Face profile](https://huggingface.co/bhahn1800).
+A small, static personal site for Brant Hahn. The homepage introduces his strategy and public work; `technical.html` covers software architecture and agentic coding. Biographical and career content is based on his LinkedIn profile and 2026 resume. Project descriptions link to the public [GitHub repositories](https://github.com/bhahn1800), and the site links to his [Hugging Face profile](https://huggingface.co/bhahn1800). The resume itself is not published in this repository.
 
 ## Preview locally
 
