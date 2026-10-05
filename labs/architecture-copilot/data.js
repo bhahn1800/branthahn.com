@@ -1,0 +1,29 @@
+// Fictional reference system, authored for this portfolio. No employer material.
+export const documents = [
+  {id:'ADR-001',title:'Event delivery and idempotency',keywords:['duplicates','idempotency','Kafka','delivery','retries'],body:'The sample order platform uses Kafka with at-least-once delivery. Consumers store an event ID in PostgreSQL with a unique constraint, inside the same transaction as the business update. A repeated event ID becomes a no-op. Offsets are committed after the transaction succeeds. This prevents duplicate side effects for this consumer but does not make the entire platform exactly-once. The tradeoff is extra writes and storage for the idempotency ledger.'},
+  {id:'ADR-002',title:'Transactional outbox',keywords:['outbox','atomic','publish','transaction','PostgreSQL'],body:'An order update and its outbox row are written in one PostgreSQL transaction. A relay publishes outbox rows to Kafka and records publication after broker acknowledgement. The relay can publish a row more than once after a crash, so consumers still need idempotency. The outbox avoids the dual-write gap between saving an order and publishing its event. The tradeoff is relay operations and eventual publication delay.'},
+  {id:'ADR-003',title:'Inventory consistency boundary',keywords:['inventory','consistency','reservation','overselling','availability'],body:'A read model displays inventory availability and may be stale. The inventory service owns the authoritative reservation check; the order service cannot confirm inventory from the read model alone. A reservation has an expiry and must be confirmed before that expiry. This gives fast availability reads while keeping the reservation decision in one owner. The tradeoff is temporary divergence between displayed availability and a successful reservation.'},
+  {id:'ADR-004',title:'Retries and the dead-letter queue',keywords:['retries','backoff','dlq','deadletter','poison','failures'],body:'Transient failures receive bounded retries with exponential backoff and jitter. After five failed processing attempts, the sample consumer moves the event to a dead-letter queue, preserving event ID, reason and original timestamp. Permanent schema errors go directly to the dead-letter queue. Operators inspect the error, correct the cause and use a reviewed replay procedure. The tradeoff is explicit recovery work rather than blocking a partition forever.'},
+  {id:'ADR-005',title:'Event schema evolution',keywords:['schema','version','contract','compatibility','consumer'],body:'Events carry a schema version. New optional fields are additive; removing fields or changing meaning requires a new version. Producers run contract checks against supported consumer fixtures before release. Unknown versions are rejected into the dead-letter queue for investigation. This reduces silent consumer breakage but requires version management and coordination for incompatible changes.'},
+  {id:'ADR-006',title:'Observability and service objectives',keywords:['observability','latency','lag','tracing','SLO','alerts'],body:'The sample platform records request latency, consumer lag, error rate and dead-letter queue depth. Trace IDs link HTTP requests with order events; event IDs correlate retries. The example objective is 99 percent of order submissions accepted within two seconds over a rolling 30-day window. Alerts use sustained error-budget burn rather than a single slow request. These values are fictional design targets, not measured production outcomes.'},
+  {id:'ADR-007',title:'Deployment and rollback',keywords:['deployment','rollback','canary','release','Kubernetes'],body:'Spring Boot services run in Kubernetes. Releases use a small canary before wider rollout, with latency, error rate and consumer lag as checks. Database migrations must remain compatible with the old application version during rollout. A failed canary stops promotion. The tradeoff is more release coordination in exchange for smaller blast radius and a clearer rollback path.'},
+  {id:'ADR-008',title:'Data minimization and retention',keywords:['privacy','retention','PII','security','data'],body:'Events use internal customer references rather than payment details. Logs omit credentials and unnecessary personal information. The sample event retention window is seven days; the idempotency ledger must cover the allowed replay window. Retention changes require review because deleting ledger entries too early can allow repeated side effects during replay. Retention values are examples for this fictional platform.'}
+];
+export const samples = [
+  {label:'Duplicate delivery',question:'How do we prevent duplicate side effects when Kafka delivers an event again?'},
+  {label:'Inventory tradeoff',question:'Can the order service trust displayed inventory availability to confirm a reservation?'},
+  {label:'Outbox design',question:'Why use a transactional outbox instead of directly publishing after saving an order?'},
+  {label:'Missing evidence',question:'What is the salary range for a designer?'}
+];
+export const evaluationCases = [
+  {question:'How do consumers prevent duplicate side effects?',expected:'ADR-001'},
+  {question:'Why is a transactional outbox used?',expected:'ADR-002'},
+  {question:'Which owner confirms inventory reservations?',expected:'ADR-003'},
+  {question:'How are retries and poison events handled?',expected:'ADR-004'},
+  {question:'What is the schema version compatibility policy?',expected:'ADR-005'},
+  {question:'How are consumer lag and latency observed?',expected:'ADR-006'},
+  {question:'How does the canary deployment support rollback?',expected:'ADR-007'},
+  {question:'What are the privacy and retention decisions?',expected:'ADR-008'},
+  {question:'What is the salary range for a designer?',expected:null},
+  {question:'Who won the championship in 1972?',expected:null}
+];

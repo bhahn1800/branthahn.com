@@ -1,0 +1,123 @@
+{
+  "evaluatedAt": "2026-10-05T01:43:47.642Z",
+  "scope": "Authored synthetic component fixtures; not an LLM quality benchmark.",
+  "retrieval": [
+    {
+      "question": "How do consumers prevent duplicate side effects?",
+      "expected": "ADR-001",
+      "retrieved": [
+        "ADR-001",
+        "ADR-008",
+        "ADR-002"
+      ],
+      "pass": true
+    },
+    {
+      "question": "Why is a transactional outbox used?",
+      "expected": "ADR-002",
+      "retrieved": [
+        "ADR-002"
+      ],
+      "pass": true
+    },
+    {
+      "question": "Which owner confirms inventory reservations?",
+      "expected": "ADR-003",
+      "retrieved": [
+        "ADR-003"
+      ],
+      "pass": true
+    },
+    {
+      "question": "How are retries and poison events handled?",
+      "expected": "ADR-004",
+      "retrieved": [
+        "ADR-004",
+        "ADR-008",
+        "ADR-006"
+      ],
+      "pass": true
+    },
+    {
+      "question": "What is the schema version compatibility policy?",
+      "expected": "ADR-005",
+      "retrieved": [
+        "ADR-005"
+      ],
+      "pass": true
+    },
+    {
+      "question": "How are consumer lag and latency observed?",
+      "expected": "ADR-006",
+      "retrieved": [
+        "ADR-006",
+        "ADR-007"
+      ],
+      "pass": true
+    },
+    {
+      "question": "How does the canary deployment support rollback?",
+      "expected": "ADR-007",
+      "retrieved": [
+        "ADR-007"
+      ],
+      "pass": true
+    },
+    {
+      "question": "What are the privacy and retention decisions?",
+      "expected": "ADR-008",
+      "retrieved": [
+        "ADR-008"
+      ],
+      "pass": true
+    },
+    {
+      "question": "What is the salary range for a designer?",
+      "expected": null,
+      "retrieved": [],
+      "pass": true
+    },
+    {
+      "question": "Who won the championship in 1972?",
+      "expected": null,
+      "retrieved": [],
+      "pass": true
+    }
+  ],
+  "telemetry": [
+    {
+      "scenario": "Retry storm",
+      "eventCount": 5,
+      "errorCount": 2,
+      "p95_ms": 2900,
+      "runbooks": [
+        "RUN-001"
+      ]
+    },
+    {
+      "scenario": "Slow database",
+      "eventCount": 4,
+      "errorCount": 3,
+      "p95_ms": 2400,
+      "runbooks": [
+        "RUN-002"
+      ]
+    },
+    {
+      "scenario": "Contract break",
+      "eventCount": 3,
+      "errorCount": 2,
+      "p95_ms": 50,
+      "runbooks": [
+        "RUN-003"
+      ]
+    },
+    {
+      "scenario": "Unknown signature",
+      "eventCount": 1,
+      "errorCount": 1,
+      "p95_ms": 120,
+      "runbooks": []
+    }
+  ]
+}

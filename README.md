@@ -21,3 +21,7 @@ Then visit <http://localhost:8000>.
 5. Wait for DNS and the HTTPS certificate, then enable **Enforce HTTPS** in Pages.
 
 Do not change the domain's Route 53 registration or auto-renew setting as part of publishing the site.
+
+## LLM portfolio labs
+
+Two standalone Hugging Face Static Spaces live in [`labs/`](labs/README.md): Architecture Evidence Copilot and Event Incident Triage Lab. Their original synthetic evidence, validation, retrieval, evaluation fixtures, and browser-local pretrained model integration are included.
